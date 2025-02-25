@@ -1,0 +1,24 @@
+@page "/"
+@inject ProductService ProductService
+
+<h3>Inventory Hub</h3>
+<button @onclick="LoadProducts">Load Products</button>
+
+@if (products != null)
+{
+    <ul>
+        @foreach (var product in products)
+        {
+            <li>@product.Name - @product.Quantity - $@product.Price</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Product> products;
+
+    private async Task LoadProducts()
+    {
+        products = await ProductService.GetProductsAsync();
+    }
+}
